@@ -1,4 +1,4 @@
-# Rasa Chatbot to Chatbase Analytics
+# Rasa Chatbot to Google Chatbase Analytics
 send rasa logs from database MYSQL to chatbase Analytics
 
 set configurations in config.json
