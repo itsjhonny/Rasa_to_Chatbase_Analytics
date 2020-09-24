@@ -1,2 +1,2 @@
-# Rasa_to_Chatbase_Analytics
-send rasa logs to chatbase Analytics
+# Rasa Chatbot to Chatbase Analytics
+send rasa logs from database MYSQL to chatbase Analytics
