@@ -1,0 +1,11 @@
+{
+    "api_key": "",
+    "api_platform": "Portal_Fiocruz",
+    "api_version": "0.0.1",
+    "database_charset": "utf8mb4",
+    "database_db": "rasa",
+    "database_host": "localhost",
+    "database_password": "password",
+    "database_user": "root",
+    "last_id_sanded":
+}
