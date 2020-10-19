@@ -1,6 +1,9 @@
 import json
 import requests
 import time
+import string
+import re
+import unicodedata
 
 
 class ChatBaseMessage(object):
@@ -20,14 +23,24 @@ class ChatBaseMessage(object):
                  time_stamp=None):
         self.api_key = api_key
         self.platform = platform
-        self.message = message
-        self.intent = intent
+        self.message = self.filter_message(message)
+        self.intent = self.filter_message(intent)
         self.version = version
         self.user_id = user_id
         self.not_handled = not_handled
-        self.feedback = False
-        self.time_stamp = time_stamp
+        #self.feedback = False
+        self.time_stamp = self.get_current_timestamp()  # int(time_stamp)
         self.type = type
+
+    @staticmethod
+    def filter_message(msg):
+        formatted_msg = re.sub(r"[-()\"#/@;:*<>{}`+=~_|.!?,]", "", msg)
+
+        text_unicode = unicodedata.normalize('NFD', formatted_msg)\
+            .encode('ascii', 'ignore')\
+            .decode("utf-8")
+
+        return text_unicode
 
     @staticmethod
     def get_current_timestamp():
@@ -47,6 +60,14 @@ class ChatBaseMessage(object):
         """Send the message to the Chatbase API."""
         url = "https://chatbase.com/api/message"
 
+        if not self.message:
+            # print(self.type)
+            #print('intent '  + self.intent)
+            return  # print('mensagem sem corpo')
+
+        data_json = self.to_json()
+
+        print(data_json)
         return requests.post(url,
-                             data=self.to_json(),
+                             data=data_json,
                              headers=ChatBaseMessage.get_content_type())
